@@ -7,7 +7,6 @@
     <!-- Script oficial do Telegram para integrar o WebApp -->
     <script src="https://telegram.org"></script>
     
-    <!-- Estilos visuais embutidos diretamente para evitar bloqueios de links externos -->
     <style>
         body {
             background-color: #111827;
@@ -28,7 +27,7 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
-            items-center: center;
+            align-items: center;
             margin-bottom: 24px;
         }
         .btn-recarregar {
@@ -65,8 +64,21 @@
             display: flex;
             align-items: center;
         }
-        .icone-operadora {
+        .icone-operadora-v {
             background-color: #7c3aed;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        .icone-operadora-c {
+            background-color: #ef4444;
             color: #ffffff;
             font-weight: bold;
             font-size: 20px;
@@ -106,9 +118,6 @@
             transition: background-color 0.2s;
             margin-top: 24px;
         }
-        .btn-fechar:hover {
-            background-color: #4b5563;
-        }
     </style>
 </head>
 <body>
@@ -130,27 +139,55 @@
     <div style="flex: 1 1 0%;">
         <div class="titulo-secao">Produtos Disponíveis</div>
         
-        <!-- Cartão do e-SIM Vivo -->
+        <!-- Cartão 1: Vivo 30GB -->
         <div class="cartao-produto">
             <div class="info-produto">
-                <div class="icone-operadora">V</div>
-                <div>
+                <div class="icone-operadora-v">V</div>
+                <div style="margin-left: 12px;">
                     <h3 style="margin: 0; font-weight: bold; font-size: 14px;">e-SIM Vivo 30GB</h3>
                     <p style="margin: 2px 0 0 0; font-size: 12px; color: #9ca3af;">Internet de alta velocidade</p>
                 </div>
             </div>
             <div style="text-align: right;">
                 <p style="margin: 0; font-size: 16px; font-weight: bold; color: #e5e7eb;">R$ 25,00</p>
-                <button onclick="comprarEsim()" class="btn-comprar">
-                    Comprar
-                </button>
+                <button onclick="comprarEsim('Vivo 30GB')" class="btn-comprar">Comprar</button>
+            </div>
+        </div>
+
+        <!-- Cartão 2: Claro 35GB -->
+        <div class="cartao-produto">
+            <div class="info-produto">
+                <div class="icone-operadora-c">C</div>
+                <div style="margin-left: 12px;">
+                    <h3 style="margin: 0; font-weight: bold; font-size: 14px;">e-SIM Claro 35GB</h3>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #9ca3af;">Conectividade total estável</p>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <p style="margin: 0; font-size: 16px; font-weight: bold; color: #e5e7eb;">R$ 30,00</p>
+                <button onclick="comprarEsim('Claro 35GB')" class="btn-comprar">Comprar</button>
+            </div>
+        </div>
+
+        <!-- Cartão 3: Claro 40GB -->
+        <div class="cartao-produto">
+            <div class="info-produto">
+                <div class="icone-operadora-c">C</div>
+                <div style="margin-left: 12px;">
+                    <h3 style="margin: 0; font-weight: bold; font-size: 14px;">e-SIM Claro 40GB</h3>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #9ca3af;">Máxima franquia de dados</p>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <p style="margin: 0; font-size: 16px; font-weight: bold; color: #e5e7eb;">R$ 35,00</p>
+                <button onclick="comprarEsim('Claro 40GB')" class="btn-comprar">Comprar</button>
             </div>
         </div>
     </div>
 
     <!-- Botão de Fechar Nativo -->
     <div>
-        <button onclick="fecharLoja()" class="btn-fechar">
+        <button onclick="tg.close()" class="btn-fechar">
             Voltar para o Chat
         </button>
     </div>
@@ -161,23 +198,22 @@
         tg.expand(); 
 
         function recarregarSaldo() {
+            // ⚠️ COLE A SUA CHAVE BITPIX REAL DA BIPA DENTRO DAS ASPAS ABAIXO
+            const chaveBipa = "nazarenocli0822@outlook.com";
+
             tg.showPopup({
-                title: 'Recarga de Saldo',
-                message: 'Copie a chave BitPix da sua Bipa e faça o pagamento no seu banco.',
+                title: 'Recarga via PIX',
+                message: 'Para adicionar saldo, copie nossa chave BitPix:\n\n' + chaveBipa + '\n\nApós o pagamento, envie o comprovante no chat para validação!',
                 buttons: [{type: 'ok', text: 'Entendi'}]
             });
         }
 
-        function comprarEsim() {
+        function comprarEsim(nomePlano) {
             tg.showPopup({
                 title: 'Saldo Insuficiente',
-                message: 'Adicione saldo à sua carteira antes de prosseguir com a compra.',
-                buttons: [{type: 'ok', text: 'Fechar'}]
+                message: 'Você precisa de saldo para comprar o ' + nomePlano + '. Feche a loja e clique em "Adicionar Saldo" no chat.',
+                buttons: [{type: 'ok', text: 'Entendi'}]
             });
-        }
-
-        function fecharLoja() {
-            tg.close(); 
         }
     </script>
 </body>
