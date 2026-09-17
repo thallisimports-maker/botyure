@@ -6,38 +6,142 @@
     <title>Loja e-SIM</title>
     <!-- Script oficial do Telegram para integrar o WebApp -->
     <script src="https://telegram.org"></script>
-    <!-- Biblioteca de design Tailwind CSS Estável -->
-   <link href="https://cloudflare.com" rel="stylesheet"
+    
+    <!-- Estilos visuais embutidos diretamente para evitar bloqueios de links externos -->
+    <style>
+        body {
+            background-color: #111827;
+            color: #f3f4f6;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .container-saldo {
+            background-color: #1f2937;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            items-center: center;
+            margin-bottom: 24px;
+        }
+        .btn-recarregar {
+            background-color: #10b981;
+            color: #111827;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-recarregar:hover {
+            background-color: #059669;
+        }
+        .titulo-secao {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #d1d5db;
+        }
+        .cartao-produto {
+            background-color: #1f2937;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .info-produto {
+            display: flex;
+            align-items: center;
+        }
+        .icone-operadora {
+            background-color: #7c3aed;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        .btn-comprar {
+            background-color: #6366f1;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn-comprar:hover {
+            background-color: #4f46e5;
+        }
+        .btn-fechar {
+            width: 100%;
+            background-color: #374151;
+            color: #d1d5db;
+            font-weight: 500;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 24px;
+        }
+        .btn-fechar:hover {
+            background-color: #4b5563;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans min-h-screen p-4 flex flex-col justify-between">
+<body>
 
     <!-- Cabeçalho do Usuário -->
-    <div class="bg-gray-800 p-4 rounded-2xl shadow-xl flex justify-between items-center mb-6">
+    <div class="container-saldo">
         <div>
-            <p class="text-xs text-gray-400">Saldo Disponível</p>
-            <p class="text-2xl font-bold text-green-400">R$ 0,00</p>
+            <p style="margin: 0; font-size: 12px; color: #9ca3af;">Saldo Disponível</p>
+            <p style="margin: 4px 0 0 0; font-size: 24px; font-weight: bold; color: #34d399;">R$ 0,00</p>
         </div>
-        <button onclick="recarregarSaldo()" class="bg-green-500 hover:bg-green-600 text-gray-900 font-bold py-2 px-4 rounded-xl text-sm transition-all shadow-md">
-            + Recarregar
-        </button>
+        <div style="display: flex; align-items: center;">
+            <button onclick="recarregarSaldo()" class="btn-recarregar">
+                + Recarregar
+            </button>
+        </div>
     </div>
 
     <!-- Lista de Produtos / e-SIM -->
-    <div class="flex-1">
-        <h2 class="text-lg font-semibold mb-4 text-gray-300">Produtos Disponíveis</h2>
+    <div style="flex: 1 1 0%;">
+        <div class="titulo-secao">Produtos Disponíveis</div>
         
         <!-- Cartão do e-SIM Vivo -->
-        <div class="bg-gray-800 p-4 rounded-2xl shadow-md border border-gray-700 flex justify-between items-center mb-4">
-            <div class="flex items-center space-x-3">
-                <div class="bg-purple-600 p-3 rounded-xl font-bold text-lg text-white">V</div>
-                <div class="ml-3">
-                    <h3 class="font-bold text-sm">e-SIM Vivo 30GB</h3>
-                    <p class="text-xs text-gray-400">Internet de alta velocidade</p>
+        <div class="cartao-produto">
+            <div class="info-produto">
+                <div class="icone-operadora">V</div>
+                <div>
+                    <h3 style="margin: 0; font-weight: bold; font-size: 14px;">e-SIM Vivo 30GB</h3>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #9ca3af;">Internet de alta velocidade</p>
                 </div>
             </div>
-            <div class="text-right">
-                <p class="text-base font-bold text-gray-200">R$ 25,00</p>
-                <button onclick="comprarEsim()" class="mt-1 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition-all">
+            <div style="text-align: right;">
+                <p style="margin: 0; font-size: 16px; font-weight: bold; color: #e5e7eb;">R$ 25,00</p>
+                <button onclick="comprarEsim()" class="btn-comprar">
                     Comprar
                 </button>
             </div>
@@ -45,8 +149,8 @@
     </div>
 
     <!-- Botão de Fechar Nativo -->
-    <div class="mt-6">
-        <button onclick="fecharLoja()" class="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-3 rounded-xl text-sm transition-all">
+    <div>
+        <button onclick="fecharLoja()" class="btn-fechar">
             Voltar para o Chat
         </button>
     </div>
