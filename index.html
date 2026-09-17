@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja e-SIM</title>
+    <!-- Script oficial do Telegram para integrar o WebApp -->
+    <script src="https://telegram.org"></script>
+    <!-- Biblioteca de design Tailwind CSS -->
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen p-4 flex flex-col justify-between">
+
+    <!-- Cabeçalho do Usuário -->
+    <div class="bg-slate-800 p-4 rounded-2xl shadow-xl flex justify-between items-center mb-6">
+        <div>
+            <p class="text-xs text-slate-400">Saldo Disponível</p>
+            <p class="text-2xl font-bold text-emerald-400">R$ 0,00</p>
+        </div>
+        <button onclick="recarregarSaldo()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-2 px-4 rounded-xl text-sm transition-all shadow-md">
+            + Recarregar
+        </button>
+    </div>
+
+    <!-- Lista de Produtos / e-SIM -->
+    <div class="flex-1">
+        <h2 class="text-lg font-semibold mb-4 text-slate-300">Produtos Disponíveis</h2>
+        
+        <!-- Cartão do e-SIM Vivo -->
+        <div class="bg-slate-800 p-4 rounded-2xl shadow-md border border-slate-700 flex justify-between items-center mb-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-purple-600 p-3 rounded-xl font-bold text-lg text-white">V</div>
+                <div>
+                    <h3 class="font-bold text-sm">e-SIM Vivo 30GB</h3>
+                    <p class="text-xs text-slate-400">Internet de alta velocidade</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-base font-bold text-slate-200">R$ 25,00</p>
+                <button onclick="comprarEsim()" class="mt-1 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition-all">
+                    Comprar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão de Fechar Nativo -->
+    <div class="mt-6">
+        <button onclick="fecharLoja()" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium py-3 rounded-xl text-sm transition-all">
+            Voltar para o Chat
+        </button>
+    </div>
+
+    <!-- Lógica de interações do Telegram -->
+    <script>
+        // Inicializa o WebApp do Telegram
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Abre o mini-site cobrindo a tela inteira
+
+        function recarregarSaldo() {
+            tg.showPopup({
+                title: 'Recarga de Saldo',
+                message: 'Copie a chave BitPix da sua Bipa e faça o pagamento no seu banco.',
+                buttons: [{type: 'ok', text: 'Entendi'}]
+            });
+        }
+
+        function comprarEsim() {
+            tg.showPopup({
+                title: 'Saldo Insuficiente',
+                message: 'Adicione saldo à sua carteira antes de prosseguir com a compra.',
+                buttons: [{type: 'ok', text: 'Fechar'}]
+            });
+        }
+
+        function fecharLoja() {
+            tg.close(); // Fecha o WebApp e volta para o chat de texto
+        }
+    </script>
+</body>
+</html>
